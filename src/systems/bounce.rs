@@ -1,9 +1,8 @@
 use std::ops::Deref;
 
 use amethyst::{
-    core::{Transform, SystemDesc},
-    derive::SystemDesc,
-    ecs::prelude::{Join, ReadStorage, System, SystemData, World, WriteStorage},
+    core::Transform,
+    ecs::prelude::{Join, ReadStorage, System, WriteStorage},
     ecs::{Read, ReadExpect},
     assets::AssetStorage,
     audio::{output::Output, Source}

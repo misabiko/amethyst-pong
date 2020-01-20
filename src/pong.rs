@@ -9,13 +9,10 @@ pub const BALL_VELOCITY_Y: f32 = 50.;
 pub const BALL_RADIUS: f32 = 2.;
 
 use amethyst::{
-    assets::{AssetStorage, Loader, Handle},
-    core::{
-        transform::Transform,
-        timing::Time
-    },
-    ecs::prelude::{Component, DenseVecStorage, Entity},
     prelude::*,
+    assets::{AssetStorage, Loader, Handle},
+    core::{Transform, Time},
+    ecs::prelude::{Component, DenseVecStorage, Entity},
     renderer::{Camera, ImageFormat, SpriteRender, SpriteSheet, SpriteSheetFormat, Texture},
     ui::{Anchor, TtfFormat, UiText, UiTransform}
 };

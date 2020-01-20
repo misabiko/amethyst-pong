@@ -1,9 +1,5 @@
 use amethyst::{
-    core::{
-        timing::Time,
-        transform::Transform,
-        SystemDesc
-    },
+    core::{Time, Transform, SystemDesc},
     derive::SystemDesc,
     ecs::prelude::{Join, Read, ReadStorage, System, SystemData, World, WriteStorage}
 };

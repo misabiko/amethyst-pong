@@ -1,8 +1,5 @@
 use amethyst::{
-    core::{
-        transform::Transform,
-        SystemDesc
-    },
+    core::{Transform, SystemDesc},
     derive::SystemDesc,
     ecs::prelude::{Join, ReadExpect, System, SystemData, World, Write, WriteStorage,},
     ecs::Read,
