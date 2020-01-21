@@ -8,13 +8,16 @@ pub const BALL_VELOCITY_X: f32 = 75.;
 pub const BALL_VELOCITY_Y: f32 = 50.;
 pub const BALL_RADIUS: f32 = 2.;
 
+pub const PUSHPULL_FORCE: f32 = 1.;
+
 use amethyst::{
     prelude::*,
     assets::{AssetStorage, Loader, Handle},
     core::{Transform, Time},
     ecs::prelude::{Component, DenseVecStorage, Entity},
     renderer::{Camera, ImageFormat, SpriteRender, SpriteSheet, SpriteSheetFormat, Texture},
-    ui::{Anchor, TtfFormat, UiText, UiTransform}
+    ui::{Anchor, TtfFormat, UiText, UiTransform},
+    input::{VirtualKeyCode, is_key_down},
 };
 
 use crate::audio::initialise_audio;
@@ -98,6 +101,31 @@ impl SimpleState for Pong {
         }
 
         //can use Trans::Pop to pop out the State
+        Trans::None
+    }
+
+    fn handle_event(&mut self, _data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
+        if let StateEvent::Window(event) = &event {
+            if is_key_down(&event, VirtualKeyCode::Escape) {
+                println!("Event: {:?}", event);
+                return Trans::Push(Box::new(PausedState));
+            }
+        }
+
+        Trans::None
+    }
+}
+
+struct PausedState;
+
+impl SimpleState for PausedState {
+    fn handle_event(&mut self, _data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
+        if let StateEvent::Window(event) = &event {
+            if is_key_down(&event, VirtualKeyCode::J) {
+                return Trans::Pop;
+            }
+        }
+
         Trans::None
     }
 }

@@ -2,6 +2,8 @@
     axes: {
         "left_paddle": Emulated(pos: Key(W), neg: Key(S)),
         "right_paddle": Emulated(pos: Key(Up), neg: Key(Down)),
+        "left_pushpull": Emulated(pos: Key(D), neg: Key(A)),
+        "right_pushpull": Emulated(pos: Key(Right), neg: Key(Left)),
     },
     actions: {}
 )
