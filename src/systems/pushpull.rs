@@ -1,7 +1,7 @@
 use amethyst::{
-    core::{Transform, SystemDesc},
+    core::{SystemDesc},
     derive::SystemDesc,
-    ecs::{System, SystemData, Join, WriteStorage, ReadStorage, Read, World},
+    ecs::{System, SystemData, Join, WriteStorage, Read, World},
     input::{InputHandler, StringBindings},
 };
 use crate::pong::{Ball, PUSHPULL_FORCE};
@@ -15,9 +15,9 @@ impl<'s> System<'s> for PushPullSystem {
         Read<'s, InputHandler<StringBindings>>,
     );
 
-    fn run(&mut self, (mut balls, entities, input): Self::SystemData) {
+    fn run(&mut self, (mut balls, input): Self::SystemData) {
         //is there a way to get an iterator without joining?
-        for (ball) in (&mut balls).join() {
+        for ball in (&mut balls).join() {
             if let Some(pushpull_amount) = input.axis_value("left_pushpull") {
                 ball.velocity[0] += PUSHPULL_FORCE * pushpull_amount;
             }
