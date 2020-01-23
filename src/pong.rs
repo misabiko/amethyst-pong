@@ -67,6 +67,12 @@ pub struct ScoreText {
     pub p2_score: Entity
 }
 
+#[derive(PartialEq)]
+pub enum CurrentState {
+    Running,
+    Paused,
+}
+
 #[derive(Default)]  //empty constructor
 pub struct Pong {
     ball_spawn_timer: Option<f32>,
@@ -104,25 +110,15 @@ impl SimpleState for Pong {
         Trans::None
     }
 
-    fn handle_event(&mut self, _data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
+    fn handle_event(&mut self, data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
         if let StateEvent::Window(event) = &event {
             if is_key_down(&event, VirtualKeyCode::Escape) {
-                println!("Event: {:?}", event);
-                return Trans::Push(Box::new(PausedState));
-            }
-        }
-
-        Trans::None
-    }
-}
-
-struct PausedState;
-
-impl SimpleState for PausedState {
-    fn handle_event(&mut self, _data: StateData<'_, GameData<'_, '_>>, event: StateEvent) -> SimpleTrans {
-        if let StateEvent::Window(event) = &event {
-            if is_key_down(&event, VirtualKeyCode::J) {
-                return Trans::Pop;
+                let mut run_state = data.world.write_resource::<CurrentState>();
+                //not too sure why you can/must use the dereference operator on FetchMut
+                *run_state = match *run_state {
+                    CurrentState::Paused => CurrentState::Running,
+                    CurrentState::Running => CurrentState::Paused,
+                }
             }
         }
 

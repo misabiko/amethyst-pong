@@ -7,7 +7,7 @@ use amethyst::{
 
 use crate::pong::{Paddle, Side, ARENA_HEIGHT, PADDLE_HEIGHT};
 
-#[derive(SystemDesc)]
+#[derive(SystemDesc, Default)]
 pub struct PaddleSystem;
 
 //'s → lifetime of the components

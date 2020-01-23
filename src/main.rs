@@ -16,8 +16,14 @@ mod systems;
 mod audio;
 mod pong;
 
-use crate::pong::Pong;
+use crate::pong::{Pong, CurrentState};
 use crate::audio::Music;
+
+impl Default for CurrentState {
+    fn default() -> Self {
+        CurrentState::Running
+    }
+}
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -49,8 +55,8 @@ fn main() -> amethyst::Result<()> {
             "dj_system",
             &[]
         )
-        .with(systems::PaddleSystem, "paddle_system", &["input_system"])
-        .with(systems::MoveBallsSystem, "ball_system", &[])
+        .with(systems::PaddleSystem::default().pausable(CurrentState::Running), "paddle_system", &["input_system"])
+        .with(systems::MoveBallsSystem::default().pausable(CurrentState::Running), "ball_system", &[])
         .with(
             systems::BounceSystem,
             "collision_system",

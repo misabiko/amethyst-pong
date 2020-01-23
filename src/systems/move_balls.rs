@@ -6,7 +6,7 @@ use amethyst::{
 
 use crate::pong::Ball;
 
-#[derive(SystemDesc)]
+#[derive(SystemDesc, Default)]
 pub struct MoveBallsSystem;
 
 impl<'s> System<'s> for MoveBallsSystem {
